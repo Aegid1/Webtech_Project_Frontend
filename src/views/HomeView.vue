@@ -28,11 +28,19 @@
         </div>
       </div>
     </div>
-    <div class="main-part"></div>
-      <div>
+    <div class="main-part">
+      <div class = "to-do-header">
+        <span>
+          <h1>TO DO's </h1>
+        </span>
+      </div>
+      <div class = to-do-body>
 
       </div>
-    <div class="right-side"></div>
+    </div>
+    <div class="right-side">
+
+    </div>
   </div>
 </template>
 
@@ -76,11 +84,12 @@ body {
 }
 
 .right-side {
+  position:static;
   display: grid;
   background-color: #20c9c1;
+  float: left;
   width: 20%;
   height: 100vh;
-  float: left;
   z-index: 0;
   border-radius: 30px 0px 0px 0px;
   box-shadow: -15px 2px 10px rgb(221, 227, 228)
@@ -98,8 +107,33 @@ body {
   float: left;
   z-index: 0;
   box-shadow: 15px -2px 10px rgb(221, 227, 228) inset;
+  display: grid;
+  grid-template-rows: 20% 80%;
+  height: 100vh;
 }
 
+.to-do-header{
+  grid-row-end: auto;
+  display: inline-grid;
+  z-index: 2;
+  margin-right: 75%;
+  margin-top: 8%;
+}
+
+.to-do-body{
+  background-color: #0000000d;
+  width: 133vh;
+  height: 75vh;
+  float: left;
+  z-index: 1;
+  border-radius: 15px 15px 15px 15px;
+  box-shadow: 15px -2px 50px rgb(210, 212, 213);
+  /* display: grid; */
+  /* grid-template-rows: 20% 80%; */
+  /* height: 50vh; */
+  margin-right: 0%;
+  margin-left: 5%
+}
 .content {
   z-index: 1;
 }
