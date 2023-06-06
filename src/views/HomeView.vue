@@ -1,27 +1,28 @@
 <template>
   <head>
     <link rel= "stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
   </head>
   <div class="background">
     <div class="left-side">
       <div class="left-side-container">
         <div>
           <div class = "profile-picture">
-            <div class = "circle button">
+            <div class = "circle button" onClick = "exampleFunction()">
               <i class="fa fa-upload fa-2x"></i>
             </div>
           </div>
-          <div class="profile-button button button::before button:hover::before button:hover button:active">
+          <div class="profile-button button button::before button:hover::before button:hover button:active" onClick = "exampleFunction()">
             <i class="fa fa-user icons-left-side"></i>
             Profile
           </div>
         </div>
         <div>
-          <div class="settings-button button button::before button:hover::before button:hover button:active">
+          <div class="settings-button button button::before button:hover::before button:hover button:active" onClick = "exampleFunction()">
             <i class="fa fa-cog icons-left-side"></i>
             Settings
           </div>
-          <div class="logout-button button button::before button:hover::before button:hover button:active">
+          <div class="logout-button button button::before button:hover::before button:hover button:active" onClick = "exampleFunction()">
             <i class="gg-log-out icons-left-side" style="margin-right: 18%;"></i>
             Logout
           </div>
@@ -35,7 +36,22 @@
         </span>
       </div>
       <div class = to-do-body>
-
+        <div class = TODO>
+          <span class = TODO_name>
+            Wäsche waschen gehen
+          </span>
+          <span class = TODO_date>
+            12.03.2022
+          </span>
+          <i class="fas fa-edit fa-lg edit-button edit-button i"></i>
+          <i class="fas fa-trash fa-lg edit-button edit-button i" ></i>
+          <i class="fa fa-check-circle fa-lg edit-button edit-button i"></i>
+        </div>
+        <div class = TODO>
+          <input class = "input" placeholder="TODO Name">
+          <input class = "input" placeholder="Date">
+          <i class="fa fa-plus fa-lg edit-button edit-button i todo_add_button"></i>
+        </div>
       </div>
     </div>
     <div class="right-side">
@@ -58,7 +74,39 @@ body {
   padding: 0;
   position: relative;
 }
+.TODO{
+  display: grid;
+  margin-top: 3%;
+  margin-left: 1%;
+  grid-template-columns: 5fr 3fr 0.20fr 0.20fr 0.20fr;
+  padding: 1%;
+  grid-gap: 1%;
 
+}
+.TODO_name{
+  font-weight: bold;
+  font-size: 125%;
+  text-align: left;
+  color: rgb(0, 0, 0);
+
+}
+
+.TODO_date{
+  margin-left: 5%;
+  font-weight: bold;
+  font-size: 125%;
+  color: rgb(0, 0, 0);
+
+}
+
+.input{
+  border: none;
+  /* border-bottom: 2px solid rgb(67, 65, 65); */
+  background-color: #00000000;
+  padding: 2.5%;
+  border-radius:10px;
+  box-shadow:0 0 15px 0px rgba(0,0,0,0.06);
+}
 .background {
   position: absolute;
   background-color: #f8efef;
@@ -134,6 +182,9 @@ body {
   margin-right: 0%;
   margin-left: 5%
 }
+.todo_add_button{
+  margin-top: 20%;
+}
 .content {
   z-index: 1;
 }
@@ -144,12 +195,22 @@ body {
   height: 100vh;
 }
 
-.settings-button,
-.logout-button,
-.profile-button {
+.profile-button{
   display: flex;
   align-items: center;
-  padding: 20px;
+  padding: 5px;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  z-index: 1;
+  margin-top: 5%;
+}
+.settings-button,
+.logout-button,
+.to-do-button,
+.edit-button {
+  display: flex;
+  align-items: center;
+  padding: 5px;
   color: rgb(0, 0, 0);
   cursor: pointer;
   z-index: 1;
@@ -157,9 +218,51 @@ body {
 
 .settings-button i,
 .logout-button i,
-.profile-button i {
+.profile-button i,
+.edit-button i {
   margin-right: 10%;
   z-index: 1;
+}
+.to_do{
+  margin-top: 1%;
+  margin-left: 1%;
+  cursor: pointer;
+  position: relative;
+  padding: 10px 10px;
+  font-size: 18px;
+  color: rgb(0, 0, 0);
+  border-radius: 20px;
+  background-color: transparent;
+  font-weight: 600;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.320, 1);
+  overflow: hidden;
+}
+
+.to_do::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 50%;
+  height: 50px;
+  border-radius: inherit;
+  scale: 0;
+  z-index: -1;
+  background-color: rgb(173, 165, 165);
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.to_do:hover {
+  color: #212121;
+  scale: 0.98;
+}
+
+.to_do:hover::before {
+  scale: 3;
+}
+
+.to_do:active {
+  scale: 0.98;
 }
 
 .button {
