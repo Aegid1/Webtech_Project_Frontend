@@ -12,16 +12,19 @@
               <i class="fa fa-upload fa-2x"></i>
             </div>
           </div>
+
           <div class="profile-button button button::before button:hover::before button:hover button:active" onClick = "exampleFunction()">
             <i class="fa fa-user icons-left-side"></i>
             Profile
           </div>
         </div>
         <div>
+
           <div class="settings-button button button::before button:hover::before button:hover button:active" onClick = "exampleFunction()">
             <i class="fa fa-cog icons-left-side"></i>
             Settings
           </div>
+
           <div class="logout-button button button::before button:hover::before button:hover button:active" onClick = "exampleFunction()">
             <i class="gg-log-out icons-left-side" style="margin-right: 18%;"></i>
             Logout
@@ -36,21 +39,26 @@
         </span>
       </div>
       <div class = to-do-body>
-        <div class = TODO>
-          <span class = TODO_name>
-            Wäsche waschen gehen
-          </span>
-          <span class = TODO_date>
+        <ul id="todoListContainer">
+          <ul class = TODO id="todoTask">
+            <li class = TODO_name>
+           Einkauf fürs Kitty
+            </li>
+            <li class = TODO_date>
             12.03.2022
-          </span>
-          <i class="fas fa-edit fa-lg edit-button edit-button i"></i>
-          <i class="fas fa-trash fa-lg edit-button edit-button i" ></i>
-          <i class="fa fa-check-circle fa-lg edit-button edit-button i"></i>
-        </div>
+            </li>
+            <i class="fas fa-edit fa-lg edit-button edit-button i"></i>
+            <i class="fas fa-trash fa-lg edit-button edit-button i" ></i>
+            <i class="fa fa-check-circle fa-lg edit-button edit-button i"></i>
+          </ul>
+        </ul>
+
         <div class = TODO>
-          <input class = "input" placeholder="TODO Name">
-          <input class = "input" placeholder="Date">
-          <i class="fa fa-plus fa-lg edit-button edit-button i todo_add_button"></i>
+
+          <input type = "text" class = "input" placeholder="To-do" id="todoName">
+          <input class = "input" placeholder="Date" id="dateInput">
+          <i class="fa fa-plus fa-lg edit-button edit-button i todo_add_button" onClick = "addTask()"></i>
+
         </div>
       </div>
     </div>
@@ -66,9 +74,44 @@ export default {
   name: 'HomeView',
   components: {}
 }
+const todoName = document.getElementById('todoName');
+const todoList = document.getElementById('todoListContainer');
+const todoListName = document.getElementById('todoTask');
+
+function addTask () {
+  const taskName = todoName.value; // Den Wert des todoName-Eingabefelds abrufen
+  const listName = todoListName.value; // Den Wert des todoListName-Eingabefelds abrufen
+
+  const task = {
+    name: taskName,
+    list: listName
+  };
+
+  axios.post('/add', task)
+    .then(response => {
+      const newTask = response.data;
+      // Verarbeite die empfangenen Daten
+      // Zum Beispiel: Die Aufgabe der Todo-Liste hinzufügen
+      const taskElement = document.createElement("li");
+      taskElement.textContent = newTask.name;
+      todoList.appendChild(taskElement);
+    })
+    .catch(error => {
+      // Behandle Fehler
+    });
+}
 </script>
 
+
+
 <style>
+.ul li{
+  list-style: none;
+  font-size: 17px;
+  padding: 12px 8px 12px 50px;
+  user-select: none;
+  cursor: pointer;
+}
 body {
   margin: 0;
   padding: 0;
@@ -100,7 +143,6 @@ body {
 }
 
 .input{
-  border: none;
   /* border-bottom: 2px solid rgb(67, 65, 65); */
   background-color: #00000000;
   padding: 2.5%;
@@ -316,7 +358,6 @@ body {
  width: 6px;
  height: 16px;
  border: 2px solid;
- transform: scale(var(--ggs,1.3));
  border-right: 0;
  border-top-left-radius: 2px;
  border-bottom-left-radius: 2px;
