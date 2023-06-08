@@ -40,25 +40,22 @@
         </span>
       </div>
       <div class = to-do-body>
-        <ul id="todoListContainer">
-          <ul class = TODO id="todoTask">
-            <li class = TODO_name>
-           Einkauf fürs Kitty
-            </li>
-            <li class = TODO_date>
-            12.03.2022
-            </li>
+        <table {{ todolist }}>
+          <!-- Diese Zeile geht durch alle To-do's durch -->
+          <tr v-for="todo in todolist" :key ="todo.id" class = TODO>
+            <td class = TODO_name> {{ todo.name }} </td>
+            <td class = TODO_date> {{ todo.date }} </td>
             <i class="fas fa-edit fa-lg edit-button edit-button i"></i>
             <i class="fas fa-trash fa-lg edit-button edit-button i" ></i>
             <i class="fa fa-check-circle fa-lg edit-button edit-button i"></i>
-          </ul>
-        </ul>
+          </tr>
+        </table>
 
         <div class = TODO>
 
-          <input type = "text" class = "input" placeholder="To-do" id="todoName">
-          <input class = "input" placeholder="Date" id="dateInput">
-          <i class="fa fa-plus fa-lg edit-button edit-button i todo_add_button" onClick = "addTask()"></i>
+          <input v-model="todoName" type = "text" class = "input" placeholder="To-do">
+          <input v-model="todoDate" class = "input" placeholder="Date">
+          <i class="fa fa-plus fa-lg edit-button edit-button i todo_add_button" @click = addTask()></i>
 
         </div>
       </div>
@@ -73,37 +70,40 @@
 // @ is an alias to /src
 export default {
   name: 'HomeView',
-  components: {}
-}
-const todoName = document.getElementById('todoName');
-const todoList = document.getElementById('todoListContainer');
-const todoListName = document.getElementById('todoTask');
+  components: {},
 
-function addTask () {
-  const taskName = todoName.value; // Den Wert des todoName-Eingabefelds abrufen
-  const listName = todoListName.value; // Den Wert des todoListName-Eingabefelds abrufen
+  addTask () {
+    const data = {
+      todoName: this.todoName,
+      todoDate: this.todoDate
+    }
 
-  const task = {
-    name: taskName,
-    list: listName
-  };
+    const task = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }
 
-  axios.post('/add', task)
-    .then(response => {
-      const newTask = response.data;
-      // Verarbeite die empfangenen Daten
-      // Zum Beispiel: Die Aufgabe der Todo-Liste hinzufügen
-      const taskElement = document.createElement("li");
-      taskElement.textContent = newTask.name;
-      todoList.appendChild(taskElement);
-    })
-    .catch(error => {
+    fetch('http://localhost:8080/add', task)
+      .then(response => response.json())
+      .then(data => {
+        // creates new element in html that is then showed on website
+        document.createElement('tr')
+        todoList.appendChild(taskElement)
+      }
+      ).catch(error => {
       // Behandle Fehler
-    });
+        console.log(error)
+      })
+  },
+  methods: {
+    addTask () {}
+  }
+
 }
 </script>
-
-
 
 <style>
 .ul li{
