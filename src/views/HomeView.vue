@@ -70,54 +70,81 @@ export default {
   name: 'HomeView',
   components: {},
 
-  addTask () {
-    const data = {
-      todoName: this.todoName,
-      todoDate: this.todoDate
-    }
+  // nicht sicher ob todoList hier eine Liste oder nicht ein Objekt ist
+  data () {
+    return {
+      todolist: [],
+      todoName: '',
+      todoDate: ''
 
-    const task = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
     }
-
-    fetch('http://localhost:8080/add', task)
-      .then(response => response.json())
-      .then(data => {
-        const todoTable = document.getElementById('todoTable')
-        // creates new elements in html that are then showed on website
-        const tr = document.createElement('tr')
-        const tdName = document.createElement('td')
-        const tdDate = document.createElement('td')
-        const editIcon = document.createElement('i')
-        const trashIcon = document.createElement('i')
-        const checkIcon = document.createElement('i')
-        // defines the css classes for the created elements
-        tr.classList.add('TODO')
-        tdName.classList.add('TODO_name')
-        tdDate.classList.add('TODO_date')
-        editIcon.classList.add('fas', 'fa-edit', 'fa-lg', 'edit-button', 'i')
-        trashIcon.classList.add('fas', 'fa-trash', 'fa-lg', 'edit-button', 'i')
-        checkIcon.classList.add('fa', 'fa-check-circle', 'fa-lg', 'edit-button', 'i')
-        // adds the created elements to the tr element
-        tr.appendChild(tdName)
-        tr.appendChild(tdDate)
-        tr.appendChild(editIcon)
-        tr.appendChild(trashIcon)
-        tr.appendChild(checkIcon)
-        // adds the tr element to the todoTable
-        todoTable.appendChild(tr)
-      }
-      ).catch(error => {
-      // Behandle Fehler
-        console.log(error)
-      })
   },
+
   methods: {
-    addTask () {}
+    addTask () {
+      const data = {
+        todoName: this.todoName,
+        todoDate: this.todoDate
+      }
+
+      const task = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      }
+
+      fetch('http://localhost:8080/add', task)
+        .then(response => response.json())
+        .then(data => {
+          const todoTable = document.getElementById('todoTable')
+          // creates new elements in html that are then showed on website
+          const tr = document.createElement('tr')
+          const tdName = document.createElement('td')
+          const tdDate = document.createElement('td')
+          const editIcon = document.createElement('i')
+          const trashIcon = document.createElement('i')
+          const checkIcon = document.createElement('i')
+          // defines the css classes for the created elements
+          tr.classList.add('TODO')
+          tdName.classList.add('TODO_name')
+          tdDate.classList.add('TODO_date')
+          editIcon.classList.add('fas', 'fa-edit', 'fa-lg', 'edit-button', 'i')
+          trashIcon.classList.add('fas', 'fa-trash', 'fa-lg', 'edit-button', 'i')
+          checkIcon.classList.add('fa', 'fa-check-circle', 'fa-lg', 'edit-button', 'i')
+          // adds the created elements to the tr element
+          tr.appendChild(tdName)
+          tr.appendChild(tdDate)
+          tr.appendChild(editIcon)
+          tr.appendChild(trashIcon)
+          tr.appendChild(checkIcon)
+          // adds the tr element to the todoTable
+          todoTable.appendChild(tr)
+        }
+        ).catch(error => {
+        // Behandle Fehler
+          console.log(error)
+        })
+    },
+    loadTasks () {
+      // hier dann noch /todo/1 anpassen entsprechend der userID
+      const endpoint = 'http://localhost:8080/todo/1'
+      const requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+      }
+
+      fetch(endpoint, requestOptions)
+        .then(response => response.json())
+        .then(result => result(todo => {
+          this.todolist = todo
+        }))
+        .catch(error => console.log('todos cant be loaded', error))
+    }
+  },
+  mounted () {
+    this.loadTasks()
   }
 
 }
