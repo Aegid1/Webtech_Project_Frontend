@@ -63,7 +63,7 @@
     </div>
   </div>
 </template>
-ß
+
 <script>
 // @ is an alias to /src
 export default {
