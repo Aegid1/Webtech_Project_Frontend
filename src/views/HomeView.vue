@@ -40,20 +40,35 @@
         </span>
       </div>
       <div class = to-do-body>
-        <!-- <table {{ todolist }} id='todoTable'> -->
+        <table v-if="todolist && todolist.length > 0" id='todoTable'>
           <!-- Diese Zeile geht durch alle To-do's durch -->
-          <!-- <tr v-for="todo in todolist" :key ="todo.id" class = TODO> -->
-            <!-- <td class = TODO_name> {{ todo.name }} </td> -->
-            <!-- <td class = TODO_date> {{ todo.date }} </td> -->
-            <!-- <td> <i class="fas fa-edit fa-lg edit-button edit-button i"></i> </td> -->
-            <!-- <td> <i class="fas fa-trash fa-lg edit-button edit-button i" ></i> </td> -->
-            <!-- <td> <i class="fa fa-check-circle fa-lg edit-button edit-button i"></i> </td> -->
-          <!-- </tr> -->
-        <!-- </table> -->
-<!--  -->
-        <div class = TODO>
+          <tr v-for="todo in todolist" :key ="todo.id" class = TODOS>
+            <td class = "TODO_name"> {{ todo.name ? todo.name : ' ' }} </td>
+            <td class = "TODO_deadline"> {{ todo.deadline ? todo.deadline : ' ' }} </td>
+            <td> <i class="fas fa-edit fa-lg edit-button edit-button i"></i> </td>
+            <td> <i class="fas fa-trash fa-lg edit-button edit-button i" ></i> </td>
+            <td> <i class="fa fa-check-circle fa-lg edit-button edit-button i"></i> </td>
+          </tr>
+        </table>
+        <table v-else id='todoTable'>
+          <tr class = "TODOS">
+            <td class= "TODO_name"> </td>
+            <td class= "TODO_deadline"> 20.02.03</td>
+            <td><i class="fas fa-edit fa-lg edit-button edit-button i"></i></td>
+            <td><i class="fas fa-trash fa-lg edit-button edit-button i"></i></td>
+            <td><i class="fa fa-check-circle fa-lg edit-button edit-button i"></i></td>
+          </tr>
+          <tr class = "TODOS">
+            <td class= "TODO_name"> blabla bla</td>
+            <td class= "TODO_deadline"> 20.02.03</td>
+            <td><i class="fas fa-edit fa-lg edit-button edit-button i"></i></td>
+            <td><i class="fas fa-trash fa-lg edit-button edit-button i"></i></td>
+            <td><i class="fa fa-check-circle fa-lg edit-button edit-button i"></i></td>
+          </tr>
+        </table>
+        <div class = TODO_input>
           <input v-model="todoName" type = "text" class = "input" placeholder="To-do">
-          <input v-model="todoDate" class = "input" placeholder="Date">
+          <input v-model="todoDeadline" class = "input" placeholder="Date">
           <i class="fa fa-plus fa-lg edit-button edit-button i todo_add_button" @click = addTask()></i>
         </div>
       </div>
@@ -75,7 +90,7 @@ export default {
     return {
       todolist: [],
       todoName: '',
-      todoDate: ''
+      todoDeadline: ''
 
     }
   },
@@ -84,7 +99,7 @@ export default {
     addTask () {
       const data = {
         todoName: this.todoName,
-        todoDate: this.todoDate
+        todoDeadline: this.todoDeadline
       }
 
       const task = {
@@ -109,7 +124,7 @@ export default {
           // defines the css classes for the created elements
           tr.classList.add('TODO')
           tdName.classList.add('TODO_name')
-          tdDate.classList.add('TODO_date')
+          tdDate.classList.add('TODO_deadline')
           editIcon.classList.add('fas', 'fa-edit', 'fa-lg', 'edit-button', 'i')
           trashIcon.classList.add('fas', 'fa-trash', 'fa-lg', 'edit-button', 'i')
           checkIcon.classList.add('fa', 'fa-check-circle', 'fa-lg', 'edit-button', 'i')
@@ -129,7 +144,7 @@ export default {
     },
     loadTasks () {
       // hier dann noch /todo/1 anpassen entsprechend der userID
-      const endpoint = 'http://localhost:8080/todo/1'
+      const endpoint = 'http://localhost:8080/alltodos/1'
       const requestOptions = {
         method: 'GET',
         redirect: 'follow'
@@ -166,7 +181,15 @@ body {
   padding: 0;
   position: relative;
 }
-.TODO{
+.TODOS {
+  display: grid;
+  margin-top: 1%;
+  margin-left: 1%;
+  grid-template-columns: 16.3fr 9.5fr 0.10fr 0.10fr 0.10fr;
+  padding: 1%;
+  grid-gap: 1%;
+}
+.TODO_input{
   display: grid;
   margin-top: 3%;
   margin-left: 1%;
@@ -183,7 +206,8 @@ body {
 
 }
 
-.TODO_date{
+.TODO_deadline{
+  text-align: left;
   margin-left: 5%;
   font-weight: bold;
   font-size: 125%;
