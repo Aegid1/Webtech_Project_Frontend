@@ -4,5 +4,5 @@ module.exports = defineConfig({
   devServer: {
     port: '3000'
   },
-  publicPath: process.env.NODE_ENV === 'production' ? '/WEBTECH_PROJECT_FRONTEND/' : '/'
+  publicPath: process.env.NODE_ENV === 'production' ? '/Webtech_Project_Frontend/' : '/'
 })
