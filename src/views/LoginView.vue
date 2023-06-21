@@ -1,30 +1,27 @@
 <template>
   <div class="container">
-      <h1>Login into your Home</h1>
-      <br />
-      <br />
-    <div class="row">
-      <div class="col-md-3"></div>
-      <div class="col-md-6">
+    <div class="DivWrapper">
+      <div class="firstDiv"></div>
+      <div class="secondDiv">
         <form>
-        <div class="loginForm">
-          <label for="exampleInputEmail1" class="form-label"><b>Email address </b> </label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+          <div class="loginForm">
+            <label for="exampleInputEmail1" class="Form-titles"><b>Email address </b> </label>
+            <input type="email" class="InputFields" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+          </div>
+          <div class="loginForm">
+            <br>
+            <label for="exampleInputPassword1" class="Form-titles"><b>Password </b></label>
+            <input type="password" class="InputFields" id="exampleInputPassword1">
+          </div>
+          <div class="loginForm form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+          </div>
           <br>
-          <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-        </div>
-        <div class="loginForm">
-          <label for="exampleInputPassword1" class="form-label"><b>Password </b></label>
-          <input type="password" class="form-control" id="exampleInputPassword1">
-        </div>
-           <br>
-        <div class="loginForm form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Check me out</label>
-        </div>
-        <button type="Login" class="btn btn-primary">Login</button>
-      </form></div>
-      <div class="col-md-9"></div>
+          <button type="submit" class="LoginButton">Login</button>
+        </form></div>
+      <div class="thirdDiv"></div>
     </div>
   </div>
 </template>
@@ -36,21 +33,50 @@ export default {
 </script>
 
 <style scoped>
-.col-md-3 {
-  display: grid;
-  grid-template-rows: 40% 20%;
+
+.firstDiv {
   height: 100vh;
-  width: 20%;
+  width: 15%;
   z-index: 0;
   border-radius: 0px 30px 0px 0px;
   background-color: #20c9c1;
+  float: left;
+}
+
+.secondDiv{
+  background-color: white;
+  width: 60%;
+  height: 0px;
+  z-index: 0;
+  margin: 0 auto;
+}
+
+.thirdDiv{
+  width: 15%;
+  height: 100vh;
+  z-index: 0;
+  border-radius: 30px 0px 0px 0px;
+  background-color: #20c9c1;
+  float: right;
 }
 
 .loginForm {
   background-color: #20c9c1;
-  margin: auto;
-  max-width: 350px;
-  padding: 10px;
-  text-transform:
 }
+
+.LoginButton{
+  background-color: White;
+  max-width: 350px;
+  padding: 5px;
+}
+
+.InputFields{
+  display: inline-block;
+  width: 80%;
+}
+
+/*.Form-titles{
+  background-color: aqua;
+}
+ */
 </style>
