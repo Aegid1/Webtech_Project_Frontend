@@ -36,7 +36,7 @@ export default {
 </script>
 
 <style scoped>
-.col-md-3 {
+.col-md-3  {
   display: grid;
   grid-template-rows: 40% 20%;
   height: 100vh;
