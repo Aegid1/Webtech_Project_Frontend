@@ -27,7 +27,7 @@
             Settings
           </div>
 
-          <div class="logout-button button button::before button:hover::before button:hover button:active">
+          <div class="logout-button button button::before button:hover::before button:hover button:active" @click="navigateToLogin()">
             <i class="gg-log-out icons-left-side" style="margin-right: 18%;"></i>
             Logout
           </div>
@@ -54,7 +54,7 @@
         <table v-else id='todoTable'>
           <tr class = "TODOS">
             <td class= "TODO_name"> </td>
-            <td class= "TODO_deadline"> </td>
+            <td class= "TODO_date"> </td>
           </tr>
         </table>
         <div class = TODO_input>
@@ -87,6 +87,11 @@ export default {
   },
 
   methods: {
+
+    navigateToLogin () {
+      this.$router.push('/login')
+    },
+
     addTask () {
       const data = {
         todoName: this.todoName,
