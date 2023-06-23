@@ -11,16 +11,23 @@
               <input type="email" class="InputFields" id="exampleInputEmail1" required aria-describedby="emailHelp">
               <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
-              <div class="loginForm">
+            <div class="loginForm">
               <label for="exampleInputPassword1" class="Form-titles"><b><h2>Password</h2></b></label>
               <input type="password" class="InputFields" id="exampleInputPassword1" required>
             </div>
-            <div class="form-check">
-              <label class="form-check-label" for="exampleCheck1">Check me out</label>
-              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <div class="ForgotPassword">
+              <a href="http://localhost:3000/login"><b>Passwort vergessen?</b></a>
+              <br>
             </div>
-          <br>
-          <button type="submit" class="LoginButton"><b>Login</b></button>
+            <div class=Checkbox>
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1">&nbsp; Check me out</label></div>
+            <div class = LoginButtonDiv>
+              <button type="submit" class="LoginButton" @click="navigateToHomeView()"><b>Login</b></button>
+              <br>
+              <br>
+              <a href="http://localhost:3000/registration">Noch keinen Account? <b>Registrieren</b></a>
+            </div>
           </div>
         </form>
       </div>
@@ -31,7 +38,13 @@
 
 <script>
 export default {
-  name: 'LoginView'
+  name: 'LoginView',
+
+  methods: {
+    navigateToHomeView () {
+      this.$router.push('/')
+    }
+  }
 }
 </script>
 
@@ -64,7 +77,7 @@ export default {
 
 .WrapperLoginForm {
   background-color: #20c9c1;
-  padding-top: 45px;
+  padding-top: 30px;
   border-radius: 30px 30px 30px 30px;
 }
 
@@ -74,9 +87,12 @@ export default {
   text-align: left;
 }
 
+.form-check-input{
+  background-color: #2c3e50;
+}
+
 .Form-titles{
-  background-color: #42b983;
- }
+}
 
 .loginForm{
   text-align: left;
@@ -84,15 +100,15 @@ export default {
 }
 
 .form-check-input{
-  margin: 5px;
+  margin: auto;
 }
 .LoginButton{
   background-color: White;
   max-width: 350px;
+  margin-top: 10px;
   padding: 15px;
-  padding-left: 25px;
-  padding-right: 25px;
-  margin: 0px;
+  padding-left: 30px;
+  padding-right: 30px;
   border-radius: 15px 15px 15px 15px;
 }
 
@@ -100,21 +116,25 @@ export default {
   padding: 1vh;
 }
 
-label{
-  width: 200px;
+.InputFields{
+  width: 100vh;
+  background-color: white;
   display: inline-block;
 }
 
-.InputFields{
-  width: 100vh;
-}
-
-.form-check{
+.ForgotPassword{
+  padding-top: 10px;
   text-align: left;
-  padding-left: 3vh;
+  padding-left: 20px;
 }
-
-.loginForm form-check{
-  text-align: right;
+.Checkbox{
+  text-align: left;
+  padding-top: 3px;
+  padding-left: 20px;
+}
+.LoginButtonDiv{
+  text-align: left;
+  padding-left: 20px;
+  padding-bottom: 30px;
 }
 </style>
