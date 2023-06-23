@@ -1,3 +1,4 @@
+<!-- eslint-disable no-template-curly-in-string -->
 <template>
   <head>
 
@@ -44,32 +45,22 @@
           <!-- Diese Zeile geht durch alle To-do's durch -->
           <tr v-for="todo in todolist" :key ="todo.id" class = TODOS>
             <td class = "TODO_name"> {{ todo.name ? todo.name : ' ' }} </td>
-            <td class = "TODO_deadline"> {{ todo.deadline ? todo.deadline : ' ' }} </td>
+            <td class = "TODO_deadline"> {{ todo.date ? todo.date : ' ' }} </td>
             <td> <i class="fas fa-edit fa-lg edit-button edit-button i"></i> </td>
-            <td> <i class="fas fa-trash fa-lg edit-button edit-button i" ></i> </td>
+            <td> <i class="fas fa-trash fa-lg edit-button edit-button i" id="'deleteTodo-' + todo.id" @click="deleteTodo(todo.id)"></i> </td>
             <td> <i class="fa fa-check-circle fa-lg edit-button edit-button i"></i> </td>
           </tr>
         </table>
         <table v-else id='todoTable'>
           <tr class = "TODOS">
             <td class= "TODO_name"> </td>
-            <td class= "TODO_deadline"> 20.02.03</td>
-            <td><i class="fas fa-edit fa-lg edit-button edit-button i"></i></td>
-            <td><i class="fas fa-trash fa-lg edit-button edit-button i"></i></td>
-            <td><i class="fa fa-check-circle fa-lg edit-button edit-button i"></i></td>
-          </tr>
-          <tr class = "TODOS">
-            <td class= "TODO_name"> blabla bla</td>
-            <td class= "TODO_deadline"> 20.02.03</td>
-            <td><i class="fas fa-edit fa-lg edit-button edit-button i"></i></td>
-            <td><i class="fas fa-trash fa-lg edit-button edit-button i"></i></td>
-            <td><i class="fa fa-check-circle fa-lg edit-button edit-button i"></i></td>
+            <td class= "TODO_deadline"> </td>
           </tr>
         </table>
         <div class = TODO_input>
           <input v-model="todoName" type = "text" class = "input" placeholder="To-do">
-          <input v-model="todoDeadline" class = "input" placeholder="Date">
-          <i class="fa fa-plus fa-lg edit-button edit-button i todo_add_button" @click = addTask()></i>
+          <input v-model="todoDate" class = "input" placeholder="Date">
+          <i class="fa fa-plus fa-lg edit-button edit-button i todo_add_button" @click = "addTask"></i>
         </div>
       </div>
     </div>
@@ -90,7 +81,7 @@ export default {
     return {
       todolist: [],
       todoName: '',
-      todoDeadline: ''
+      todoDate: ''
 
     }
   },
@@ -99,7 +90,7 @@ export default {
     addTask () {
       const data = {
         todoName: this.todoName,
-        todoDeadline: this.todoDeadline
+        todoDeadline: this.todoDate
       }
 
       const task = {
@@ -142,9 +133,8 @@ export default {
           console.log(error)
         })
     },
-    loadTasks () {
-      // hier dann noch /todo/1 anpassen entsprechend der userID
-      const endpoint = 'http://localhost:8080/alltodos/1'
+    loadTasks (todolistid) {
+      const endpoint = 'http://localhost:8080/alltodos/' + todolistid
       const requestOptions = {
         method: 'GET',
         redirect: 'follow'
@@ -152,14 +142,37 @@ export default {
 
       fetch(endpoint, requestOptions)
         .then(response => response.json())
-        .then(result => result(todo => {
-          this.todolist = todo
-        }))
+        .then(result => { this.todolist = result })
         .catch(error => console.log('todos cant be loaded', error))
+    },
+
+    // deletes a todoitem based on the todoid
+    deleteTodo (todoId) {
+      // sucht den index des todos raus, das deleted werden soll
+      const index = this.todolist.findIndex(todo => todo.id === todoId)
+
+      // wenn todo gefunden gibt es den index zurück, falls kein todo gefunden wird -1 returned und es geht nicht in if case rein
+      if (index !== -1) {
+        this.todolist.splice(index, 1)
+      }
+      const endpoint = 'http://localhost:8080/delete/' + todoId
+      const requestOptions = {
+        method: 'DELETE',
+        redirect: 'follow'
+      }
+
+      fetch(endpoint, requestOptions)
+        .then(response => {
+          if (!response.ok) { console.log('Todo deletion failed') }
+        })
+        .catch(error => {
+          console.log('Todo deletion failed', error)
+        })
     }
   },
   mounted () {
-    this.loadTasks()
+    const todolistId = this.$route.params.id
+    this.loadTasks(todolistId)
   }
 
 }
@@ -206,7 +219,7 @@ body {
 
 }
 
-.TODO_deadline{
+.TODO_date{
   text-align: left;
   margin-left: 5%;
   font-weight: bold;
