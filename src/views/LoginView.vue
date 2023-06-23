@@ -4,20 +4,20 @@
       <div class="firstDiv"></div>
       <div class="secondDiv">
         <form>
+          <h1>Login into your Home</h1>
           <div class ="WrapperLoginForm">
             <div class="loginForm">
-              <label for="exampleInputEmail1" class="Form-titles"><b>Email address </b> </label>
-              <input type="email" class="InputFields" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <label for="exampleInputEmail1" class="Form-titles"><b><h2>Email address</h2></b></label>
+              <input type="email" class="InputFields" id="exampleInputEmail1" required aria-describedby="emailHelp">
               <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
               <div class="loginForm">
-              <br>
-              <label for="exampleInputPassword1" class="Form-titles"><b>Password </b></label>
-              <input type="password" class="InputFields" id="exampleInputPassword1">
+              <label for="exampleInputPassword1" class="Form-titles"><b><h2>Password</h2></b></label>
+              <input type="password" class="InputFields" id="exampleInputPassword1" required>
             </div>
-            <div class="loginForm form-check">
-              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <div class="form-check">
               <label class="form-check-label" for="exampleCheck1">Check me out</label>
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
             </div>
           <br>
           <button type="submit" class="LoginButton"><b>Login</b></button>
@@ -47,7 +47,6 @@ export default {
 }
 
 .secondDiv{
-  background-color: red;
   width: 60%;
   height: 0px;
   z-index: 0;
@@ -65,24 +64,28 @@ export default {
 
 .WrapperLoginForm {
   background-color: #20c9c1;
-  padding: 20px;
+  padding-top: 45px;
   border-radius: 30px 30px 30px 30px;
-  height: 70vh;
-}
-
-.InputFields{
-  display: inline-block;
-  width: 80%;
 }
 
 .form-text{
   margin: 10px;
+  text-align: left;
+  text-align: left;
+}
+
+.Form-titles{
+  background-color: #42b983;
+ }
+
+.loginForm{
+  text-align: left;
+  padding-left: 20px;
 }
 
 .form-check-input{
-  margin: 15px;
+  margin: 5px;
 }
-
 .LoginButton{
   background-color: White;
   max-width: 350px;
@@ -93,8 +96,25 @@ export default {
   border-radius: 15px 15px 15px 15px;
 }
 
-/*.Form-titles{
-  background-color: aqua;
+.InputFields{
+  padding: 1vh;
 }
- */
+
+label{
+  width: 200px;
+  display: inline-block;
+}
+
+.InputFields{
+  width: 100vh;
+}
+
+.form-check{
+  text-align: left;
+  padding-left: 3vh;
+}
+
+.loginForm form-check{
+  text-align: right;
+}
 </style>
