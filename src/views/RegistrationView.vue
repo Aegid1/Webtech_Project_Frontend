@@ -26,7 +26,7 @@
               <input type="checkbox" class="form-check-input" id="exampleCheck1">
               <label class="form-check-label" for="exampleCheck1">&nbsp; Check me out</label></div>
             <div class = LoginButtonDiv>
-              <button type="submit" class="LoginButton"><b>Login</b></button>
+              <button type="submit" class="LoginButton" @click="addUser()"><b>Register</b></button>
               <br>
               <br>
               <a href="http://localhost:3000/login">Schon einen Account? <b>Zum Login</b></a>
@@ -41,7 +41,45 @@
 
 <script>
 export default {
-  name: 'RegistrationView'
+  name: 'RegistrationView',
+
+  methods: {
+    addUser () {
+      // Benutzerdaten aus den Eingabefeldern abrufen
+      const email = document.getElementById('exampleInputEmail1').value
+      const confirmEmail = document.getElementById('confirmEmail').value
+      const password = document.getElementById('exampleInputPassword1').value
+      const confirmPassword = document.getElementById('confirmPassword').value
+
+      // Überprüfung, ob die Eingabefelder korrekt ausgefüllt sind
+      if (email === '' || confirmEmail === '' || password === '' || confirmPassword === '') {
+        alert('Bitte füllen Sie alle Felder aus')
+        return
+      }
+
+      if (email !== confirmEmail) {
+        alert('Die E-Mail-Adressen stimmen nicht überein')
+        return
+      }
+
+      if (password !== confirmPassword) {
+        alert('Die Passwörter stimmen nicht überein')
+        return
+      }
+
+      // Führe hier den Code aus, um den Benutzer hinzuzufügen
+      // Du kannst z.B. eine API-Anfrage senden oder die Daten in einer Datenbank speichern
+
+      // Beispiel:
+      const user = {
+        email: email,
+        password: password
+      }
+
+      // Hier kannst du den Code hinzufügen, um den Benutzer zu speichern oder weiterzuverarbeiten
+      console.log('Neuer Benutzer:', user)
+    }
+  }
 }
 </script>
 
