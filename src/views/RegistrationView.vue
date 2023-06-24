@@ -4,15 +4,18 @@
       <div class="firstDiv"></div>
       <div class="secondDiv">
         <form>
-          <h1>Register For Maximum Comfort</h1>
+          <h1>Register To Manage Your Shared Flat</h1>
           <div class ="WrapperLoginForm">
             <div class="loginForm">
-              <label for="exampleInputEmail1" class="Form-titles"><b><h2>Email address</h2></b></label>
+              <label for="exampleInputEmail1" class="Form-titles"><b><h2>Email Address</h2></b></label>
               <input type="email" class="InputFields" id="exampleInputEmail1" required aria-describedby="emailHelp">
-              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+              <label for="exampleInputEmail1" class="Form-titles"><b><h2>Confirm Email Address</h2></b></label>
+              <input type="email" class="InputFields" id="exampleInputEmail1" required aria-describedby="emailHelp">
             </div>
             <div class="loginForm">
               <label for="exampleInputPassword1" class="Form-titles"><b><h2>Password</h2></b></label>
+              <input type="password" class="InputFields" id="exampleInputPassword1" required>
+              <label for="exampleInputPassword1" class="Form-titles"><b><h2>Confirm Password</h2></b></label>
               <input type="password" class="InputFields" id="exampleInputPassword1" required>
             </div>
             <div class="ForgotPassword">
