@@ -10,13 +10,13 @@
               <label for="exampleInputEmail1" class="Form-titles"><b><h2>Email Address</h2></b></label>
               <input type="email" class="InputFields" id="exampleInputEmail1" required aria-describedby="emailHelp">
               <label for="exampleInputEmail1" class="Form-titles"><b><h2>Confirm Email Address</h2></b></label>
-              <input type="email" class="InputFields" id="exampleInputEmail1" required aria-describedby="emailHelp">
+              <input type="email" class="InputFields" id="confirmEmail" required aria-describedby="emailHelp">
             </div>
             <div class="loginForm">
               <label for="exampleInputPassword1" class="Form-titles"><b><h2>Password</h2></b></label>
               <input type="password" class="InputFields" id="exampleInputPassword1" required>
               <label for="exampleInputPassword1" class="Form-titles"><b><h2>Confirm Password</h2></b></label>
-              <input type="password" class="InputFields" id="exampleInputPassword1" required>
+              <input type="password" class="InputFields" id="confirmPassword" required>
             </div>
             <div class="ForgotPassword">
               <a href="http://localhost:3000/login"><b>Passwort vergessen?</b></a>
@@ -66,7 +66,6 @@ export default {
         alert('Die Passwörter stimmen nicht überein')
         return
       }
-
       // Führe hier den Code aus, um den Benutzer hinzuzufügen
       // Du kannst z.B. eine API-Anfrage senden oder die Daten in einer Datenbank speichern
 
@@ -75,6 +74,29 @@ export default {
         email: email,
         password: password
       }
+
+      fetch('/registration/user', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user)
+      })
+        .then(response => {
+          if (response.ok) {
+            // Die Benutzerregistrierung war erfolgreich
+            // Führe hier weitere Aktionen aus oder zeige eine Bestätigungsnachricht an
+            console.log('Benutzer wurde erfolgreich erstellt')
+          } else {
+            // Die Benutzerregistrierung ist fehlgeschlagen
+            // Zeige eine Fehlermeldung an oder führe entsprechende Aktionen aus
+            console.log('Fehler bei der Benutzererstellung')
+          }
+        })
+        .catch(error => {
+          // Bei einem Fehler während der Anfrage oder Verarbeitung
+          console.error('Fehler:', error)
+        })
 
       // Hier kannst du den Code hinzufügen, um den Benutzer zu speichern oder weiterzuverarbeiten
       console.log('Neuer Benutzer:', user)
