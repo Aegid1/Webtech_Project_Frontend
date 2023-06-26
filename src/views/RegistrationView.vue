@@ -81,7 +81,7 @@ export default {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(user)
-      })
+      }).
         .then(response => {
           if (response.ok) {
             // Die Benutzerregistrierung war erfolgreich
