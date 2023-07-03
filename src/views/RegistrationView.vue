@@ -66,16 +66,13 @@ export default {
         alert('Die Passwörter stimmen nicht überein')
         return
       }
-      // Führe hier den Code aus, um den Benutzer hinzuzufügen
-      // Du kannst z.B. eine API-Anfrage senden oder die Daten in einer Datenbank speichern
 
-      // Beispiel:
       const user = {
         email: email,
         password: password
       }
 
-      fetch('/registration', {
+      fetch('http://localhost:8080/registration', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -83,17 +80,15 @@ export default {
         body: JSON.stringify(user)
       }).then(response => {
         if (response.ok) {
-          // Die Benutzerregistrierung war erfolgreich
-          // Führe hier weitere Aktionen aus oder zeige eine Bestätigungsnachricht an
+          // wie mache ich es hier dass es mich zum login weiterleitet
+          this.$router.push('/login')
           console.log('Benutzer wurde erfolgreich erstellt')
         } else {
-          // Die Benutzerregistrierung ist fehlgeschlagen
-          // Zeige eine Fehlermeldung an oder führe entsprechende Aktionen aus
+          // beispielsweise User bereits vorhanden etc.
           console.log('Fehler bei der Benutzererstellung')
         }
       })
         .catch(error => {
-          // Bei einem Fehler während der Anfrage oder Verarbeitung
           console.error('Fehler:', error)
         })
 
