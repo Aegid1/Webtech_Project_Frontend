@@ -26,7 +26,7 @@
               <input type="checkbox" class="form-check-input" id="exampleCheck1">
               <label class="form-check-label" for="exampleCheck1">&nbsp; Check me out</label></div>
             <div class = LoginButtonDiv>
-              <button type="submit" class="LoginButton" @click="addUser()"><b>Register</b></button>
+              <button type="submit" class="LoginButton" @click="addUser"><b>Register</b></button>
               <br>
               <br>
               <a href="http://localhost:3000/login">Schon einen Account? <b>Zum Login</b></a>
@@ -75,7 +75,7 @@ export default {
         password: password
       }
 
-      fetch('/registration', {
+      fetch('http://localhost:8080/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
