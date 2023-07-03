@@ -7,6 +7,12 @@
           <h1>Register To Manage Your Shared Flat</h1>
           <div class ="WrapperLoginForm">
             <div class="loginForm">
+              <label for="exampleFirstname" class="Form-titles"><b><h2>Firstname</h2></b></label>
+              <input type="" class="InputFields" id="examplefirstName" required aria-describedby="emailHelp">
+              <label for="exampleLastname" class="Form-titles"><b><h2>Lastname</h2></b></label>
+              <input type="String" class="InputFields" id="exampleLastname" required aria-describedby="emailHelp">
+            </div>
+            <div class="loginForm">
               <label for="exampleInputEmail1" class="Form-titles"><b><h2>Email Address</h2></b></label>
               <input type="email" class="InputFields" id="exampleInputEmail1" required aria-describedby="emailHelp">
               <label for="exampleInputEmail1" class="Form-titles"><b><h2>Confirm Email Address</h2></b></label>
@@ -106,7 +112,7 @@ export default {
 <style scoped>
 
 .firstDiv {
-  height: 100vh;
+  height: 130vh;
   width: 15%;
   z-index: 0;
   border-radius: 0px 30px 0px 0px;
@@ -123,7 +129,7 @@ export default {
 
 .thirdDiv{
   width: 15%;
-  height: 100vh;
+  height: 130vh;
   z-index: 0;
   border-radius: 30px 0px 0px 0px;
   background-color: #20c9c1;
