@@ -26,7 +26,7 @@
               <input type="checkbox" class="form-check-input" id="exampleCheck1">
               <label class="form-check-label" for="exampleCheck1">&nbsp; Check me out</label></div>
             <div class = LoginButtonDiv>
-              <button type="submit" class="LoginButton" @click="addUser()"><b>Register</b></button>
+              <button type="submit" class="LoginButton" @click="addUser"><b>Register</b></button>
               <br>
               <br>
               <a href="http://localhost:3000/login">Schon einen Account? <b>Zum Login</b></a>
@@ -72,26 +72,30 @@ export default {
         password: password
       }
 
-      fetch('http://localhost:8080/registration', {
+      const userData = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(user)
-      }).then(response => {
-        if (response.ok) {
-          // wie mache ich es hier dass es mich zum login weiterleitet
-          this.$router.push('/login')
-          console.log('Benutzer wurde erfolgreich erstellt')
-        } else {
-          // beispielsweise User bereits vorhanden etc.
-          console.log('Fehler bei der Benutzererstellung')
-        }
-      })
+      }
+
+      fetch('http://localhost:8080/register', userData)
+        .then(response => response.json())
+        .then(response => {
+          if (response.ok) {
+            // Die Benutzerregistrierung war erfolgreich
+            // Führe hier weitere Aktionen aus oder zeige eine Bestätigungsnachricht an
+            console.log('Benutzer wurde erfolgreich erstellt')
+          } else {
+            // Die Benutzerregistrierung ist fehlgeschlagen
+            // Zeige eine Fehlermeldung an oder führe entsprechende Aktionen aus
+            console.log('Fehler bei der Benutzererstellung')
+          }
+        })
         .catch(error => {
           console.error('Fehler:', error)
         })
-
       // Hier kannst du den Code hinzufügen, um den Benutzer zu speichern oder weiterzuverarbeiten
       console.log('Neuer Benutzer:', user)
     }
@@ -140,9 +144,6 @@ export default {
 
 .form-check-input{
   background-color: #2c3e50;
-}
-
-.Form-titles{
 }
 
 .loginForm{
