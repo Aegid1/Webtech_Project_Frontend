@@ -147,9 +147,6 @@ export default {
   background-color: #2c3e50;
 }
 
-.Form-titles{
-}
-
 .loginForm{
   text-align: left;
   padding-left: 20px;
