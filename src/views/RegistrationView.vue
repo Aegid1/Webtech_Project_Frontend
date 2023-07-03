@@ -7,6 +7,12 @@
           <h1>Register To Manage Your Shared Flat</h1>
           <div class ="WrapperLoginForm">
             <div class="loginForm">
+              <label for="examplefirstName" class="Form-titles"><b><h2>Firstname</h2></b></label>
+              <input type="text" class="InputFields" id="examplefirstName" required aria-describedby="firstnameHelp">
+              <label for="examplefirstName" class="Form-titles"><b><h2>Lastname</h2></b></label>
+              <input type="text" class="InputFields" id="examplelastName" required aria-describedby="LastnameHelp">
+            </div>
+            <div class="loginForm">
               <label for="exampleInputEmail1" class="Form-titles"><b><h2>Email Address</h2></b></label>
               <input type="email" class="InputFields" id="exampleInputEmail1" required aria-describedby="emailHelp">
               <label for="exampleInputEmail1" class="Form-titles"><b><h2>Confirm Email Address</h2></b></label>
@@ -43,6 +49,14 @@
 export default {
   name: 'RegistrationView',
 
+  data () {
+    return {
+      todolist: [],
+      todoName: '',
+      todoDate: ''
+
+    }
+  },
   methods: {
     addUser () {
       // Benutzerdaten aus den Eingabefeldern abrufen
@@ -50,7 +64,8 @@ export default {
       const confirmEmail = document.getElementById('confirmEmail').value
       const password = document.getElementById('exampleInputPassword1').value
       const confirmPassword = document.getElementById('confirmPassword').value
-
+      const examplefirstName = document.getElementById('examplefirstName').value
+      const examplelastName = document.getElementById('exampleLastname').value
       // Überprüfung, ob die Eingabefelder korrekt ausgefüllt sind
       if (email === '' || confirmEmail === '' || password === '' || confirmPassword === '') {
         alert('Bitte füllen Sie alle Felder aus')
@@ -69,27 +84,31 @@ export default {
       // Führe hier den Code aus, um den Benutzer hinzuzufügen
       // Du kannst z.B. eine API-Anfrage senden oder die Daten in einer Datenbank speichern
 
-      // Beispiel:
       const user = {
         email: email,
-        password: password
+        password: password,
+        firstname: examplefirstName,
+        lastname: examplelastName
       }
 
-      fetch('/registration/user', {
+      const userData = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(user)
-      }).
+      }
+
+      fetch('http://localhost:8080/registration', userData)
+        .then(response => response.json())
         .then(response => {
           if (response.ok) {
-            // Die Benutzerregistrierung war erfolgreich
-            // Führe hier weitere Aktionen aus oder zeige eine Bestätigungsnachricht an
+          // Die Benutzerregistrierung war erfolgreich
+          // Führe hier weitere Aktionen aus oder zeige eine Bestätigungsnachricht an
             console.log('Benutzer wurde erfolgreich erstellt')
           } else {
-            // Die Benutzerregistrierung ist fehlgeschlagen
-            // Zeige eine Fehlermeldung an oder führe entsprechende Aktionen aus
+          // Die Benutzerregistrierung ist fehlgeschlagen
+          // Zeige eine Fehlermeldung an oder führe entsprechende Aktionen aus
             console.log('Fehler bei der Benutzererstellung')
           }
         })
@@ -108,7 +127,7 @@ export default {
 <style scoped>
 
 .firstDiv {
-  height: 100vh;
+  height: 120vh;
   width: 15%;
   z-index: 0;
   border-radius: 0px 30px 0px 0px;
@@ -117,7 +136,7 @@ export default {
 }
 
 .secondDiv{
-  width: 60%;
+  width: 55%;
   height: 0px;
   z-index: 0;
   margin: 0 auto;
@@ -125,7 +144,7 @@ export default {
 
 .thirdDiv{
   width: 15%;
-  height: 100vh;
+  height: 120vh;
   z-index: 0;
   border-radius: 30px 0px 0px 0px;
   background-color: #20c9c1;
@@ -138,22 +157,13 @@ export default {
   border-radius: 30px 30px 30px 30px;
 }
 
-.form-text{
-  margin: 10px;
-  text-align: left;
-  text-align: left;
-}
-
-.form-check-input{
-  background-color: #2c3e50;
-}
-
-.Form-titles{
-}
-
 .loginForm{
   text-align: left;
   padding-left: 20px;
+  background-color: #20c9c1;
+}
+.form-check-input{
+  background-color: #2c3e50;
 }
 
 .form-check-input{
@@ -171,10 +181,7 @@ export default {
 
 .InputFields{
   padding: 1vh;
-}
-
-.InputFields{
-  width: 100vh;
+  width: 90vh;
   background-color: white;
   display: inline-block;
 }
