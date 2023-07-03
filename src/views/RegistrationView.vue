@@ -75,28 +75,31 @@ export default {
         password: password
       }
 
-      fetch('http://localhost:8080/register', {
+      const userData = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(user)
-      }).then(response => {
-        if (response.ok) {
-          // Die Benutzerregistrierung war erfolgreich
-          // Führe hier weitere Aktionen aus oder zeige eine Bestätigungsnachricht an
-          console.log('Benutzer wurde erfolgreich erstellt')
-        } else {
-          // Die Benutzerregistrierung ist fehlgeschlagen
-          // Zeige eine Fehlermeldung an oder führe entsprechende Aktionen aus
-          console.log('Fehler bei der Benutzererstellung')
-        }
-      })
+      }
+
+      fetch('http://localhost:8080/register', userData)
+        .then(response => response.json())
+        .then(response => {
+          if (response.ok) {
+            // Die Benutzerregistrierung war erfolgreich
+            // Führe hier weitere Aktionen aus oder zeige eine Bestätigungsnachricht an
+            console.log('Benutzer wurde erfolgreich erstellt')
+          } else {
+            // Die Benutzerregistrierung ist fehlgeschlagen
+            // Zeige eine Fehlermeldung an oder führe entsprechende Aktionen aus
+            console.log('Fehler bei der Benutzererstellung')
+          }
+        })
         .catch(error => {
           // Bei einem Fehler während der Anfrage oder Verarbeitung
           console.error('Fehler:', error)
         })
-
       // Hier kannst du den Code hinzufügen, um den Benutzer zu speichern oder weiterzuverarbeiten
       console.log('Neuer Benutzer:', user)
     }
