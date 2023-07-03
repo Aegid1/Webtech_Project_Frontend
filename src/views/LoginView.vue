@@ -26,7 +26,7 @@
               <button type="submit" class="LoginButton" @click="navigateToHomeView()"><b>Login</b></button>
               <br>
               <br>
-              <a href="http://localhost:3000/registration">Noch keinen Account? <b>Registrieren</b></a>
+              <a @click="navigateToRegistrationView()">Noch keinen Account? <b>Registrieren</b></a>
             </div>
           </div>
         </form>
@@ -84,6 +84,9 @@ export default {
 
     navigateToHomeView () {
       this.$router.push('/')
+    },
+    navigateToRegistrationView () {
+      this.$router.push('/registration')
     }
   }
 }

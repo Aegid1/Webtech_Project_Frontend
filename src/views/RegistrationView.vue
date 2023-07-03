@@ -66,10 +66,7 @@ export default {
         alert('Die Passwörter stimmen nicht überein')
         return
       }
-      // Führe hier den Code aus, um den Benutzer hinzuzufügen
-      // Du kannst z.B. eine API-Anfrage senden oder die Daten in einer Datenbank speichern
 
-      // Beispiel:
       const user = {
         email: email,
         password: password
@@ -97,7 +94,6 @@ export default {
           }
         })
         .catch(error => {
-          // Bei einem Fehler während der Anfrage oder Verarbeitung
           console.error('Fehler:', error)
         })
       // Hier kannst du den Code hinzufügen, um den Benutzer zu speichern oder weiterzuverarbeiten
