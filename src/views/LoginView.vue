@@ -3,7 +3,7 @@
     <div class="DivWrapper">
       <div class="firstDiv"></div>
       <div class="secondDiv">
-        <form>
+        <form @submit="login">
           <h1>Login into your Home</h1>
           <div class ="WrapperLoginForm">
             <div class="loginForm">
@@ -23,7 +23,7 @@
               <input type="checkbox" class="form-check-input" id="exampleCheck1">
               <label class="form-check-label" for="exampleCheck1">&nbsp; Check me out</label></div>
             <div class = LoginButtonDiv>
-              <button type="submit" class="LoginButton" @click="navigateToHomeView()"><b>Login</b></button>
+              <button type="submit" class="LoginButton" @click="login"><b>Login</b></button>
               <br>
               <br>
               <a @click="navigateToRegistrationView()">Noch keinen Account? <b>Registrieren</b></a>
@@ -41,7 +41,9 @@ export default {
   name: 'LoginView',
 
   methods: {
-    login () {
+    login (event) {
+      event.preventDefault() // Verhindert das Standardverhalten des Formulars
+
       // Benutzerdaten aus den Eingabefeldern abrufen
       const email = document.getElementById('exampleInputEmail1').value
       const password = document.getElementById('exampleInputPassword1').value
@@ -71,7 +73,7 @@ export default {
           console.log(data)
           // Beispiel: Weiterleitung zur Home-Ansicht, wenn der Login erfolgreich war
           if (data.success) {
-            this.$router.push('/home')
+            this.navigateToHomeView()
           } else {
             alert('Login fehlgeschlagen')
           }
@@ -81,12 +83,8 @@ export default {
           console.error('Fehler:', error)
         })
     },
-
     navigateToHomeView () {
       this.$router.push('/')
-    },
-    navigateToRegistrationView () {
-      this.$router.push('/registration')
     }
   }
 }
