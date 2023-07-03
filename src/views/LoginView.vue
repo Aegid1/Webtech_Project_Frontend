@@ -41,6 +41,47 @@ export default {
   name: 'LoginView',
 
   methods: {
+    login () {
+      // Benutzerdaten aus den Eingabefeldern abrufen
+      const email = document.getElementById('exampleInputEmail1').value
+      const password = document.getElementById('exampleInputPassword1').value
+
+      // Überprüfung, ob die Eingabefelder korrekt ausgefüllt sind
+      if (email === '' || password === '') {
+        alert('Bitte füllen Sie alle Felder aus')
+        return
+      }
+
+      // Benutzerdaten an das Backend senden
+      const user = {
+        email: email,
+        password: password
+      }
+
+      fetch('http://localhost:8080/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user)
+      })
+        .then(response => response.json())
+        .then(data => {
+          // Hier kannst du den Response vom Backend verarbeiten
+          console.log(data)
+          // Beispiel: Weiterleitung zur Home-Ansicht, wenn der Login erfolgreich war
+          if (data.success) {
+            this.$router.push('/home')
+          } else {
+            alert('Login fehlgeschlagen')
+          }
+        })
+        .catch(error => {
+          // Bei einem Fehler während der Anfrage oder Verarbeitung
+          console.error('Fehler:', error)
+        })
+    },
+
     navigateToHomeView () {
       this.$router.push('/')
     }
