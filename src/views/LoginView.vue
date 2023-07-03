@@ -3,7 +3,7 @@
     <div class="DivWrapper">
       <div class="firstDiv"></div>
       <div class="secondDiv">
-        <form @submit="login">
+        <form @submit.prevent="login">
           <h1>Login into your Home</h1>
           <div class ="WrapperLoginForm">
             <div class="loginForm">
@@ -23,7 +23,7 @@
               <input type="checkbox" class="form-check-input" id="exampleCheck1">
               <label class="form-check-label" for="exampleCheck1">&nbsp; Check me out</label></div>
             <div class = LoginButtonDiv>
-              <button type="submit" class="LoginButton" @click="login"><b>Login</b></button>
+              <button type="submit" class="LoginButton"><b>Login</b></button>
               <br>
               <br>
               <a @click="navigateToRegistrationView()">Noch keinen Account? <b>Registrieren</b></a>
@@ -60,7 +60,7 @@ export default {
         password: password
       }
 
-      fetch('http://localhost:8080/login', {
+      fetch('http://localhost:8080/authentication', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -72,7 +72,7 @@ export default {
           // Hier kannst du den Response vom Backend verarbeiten
           console.log(data)
           // Beispiel: Weiterleitung zur Home-Ansicht, wenn der Login erfolgreich war
-          if (data.success) {
+          if (data.token !== undefined) {
             this.navigateToHomeView()
           } else {
             alert('Login fehlgeschlagen')
